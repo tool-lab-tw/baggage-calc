@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>日韓廉航行李尺寸＆超重試算器（虎航／樂桃／酷航／捷星／濟州／德威）｜免費工具</title>
+  <meta name="description" content="免費日韓廉航行李尺寸與超重檢測工具：涵蓋台灣虎航、樂桃、酷航、捷星、濟州航空、德威（泰瑞）航空最新手提尺寸重量限制、20吋登機箱通關檢測與託運行李打包重量估算。" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23d97706'/%3E%3Crect x='20' y='22' width='24' height='26' rx='4' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3Cpath d='M26 22v-4a2 2 0 012-2h8a2 2 0 012 2v4M26 48v3M38 48v3' fill='none' stroke='%23ffffff' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <meta property="og:site_name" content="實用工具實驗室" />
+  <meta property="og:title" content="日韓廉航行李尺寸＆超重試算器（6 大熱門廉航一次查）" />
+  <meta property="og:description" content="輸入登機箱長寬高與打包重量，1 秒檢查能不能順利帶上虎航、樂桃、酷航、捷星、濟州航空、德威（泰瑞）航空！" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://tool-lab-tw.github.io/baggage-calc/" />
+  <script type="application/ld+json">
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "實用工具實驗室",
+      "url": "https://tool-lab-tw.github.io/baggage-calc/"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "日韓廉航行李尺寸＆超重試算器",
+      "url": "https://tool-lab-tw.github.io/baggage-calc/",
+      "applicationCategory": "TravelApplication",
+      "operatingSystem": "All",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "TWD" }
+    }
+  ]
+  </script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <div class="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center shrink-0 shadow-sm">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="6" y="7" width="12" height="13" rx="2" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 7V5a2 2 0 012-2h2a2 2 0 012 2v2M9 20v1M15 20v1" />
+          </svg>
+        </div>
+        <div class="min-w-0">
+          <h1 class="text-base sm:text-lg font-bold tracking-tight text-slate-900 truncate">日韓廉航行李尺寸＆超重試算器</h1>
+          <p class="text-xs text-slate-500 hidden sm:block">虎航・樂桃・酷航・捷星・濟州・德威（泰瑞）手提與託運過關檢測</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="https://tool-lab-tw.github.io/" class="inline-flex items-center gap-1 px-2.5 py-2 rounded-lg text-xs sm:text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-colors">
+          <span>← 工具總覽</span>
+        </a>
+        <button id="btn-copy-summary" type="button" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs sm:text-sm font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors shrink-0">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
+          </svg>
+          <span>複製結果</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
+
+    <!-- Airline Selector -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm space-y-2.5">
+      <div class="flex items-center justify-between gap-2">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">1. 選擇搭乘的廉價航空</span>
+        <span id="airline-rule-pill" class="text-[11px] font-semibold text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full">手提 2 件合計 10 kg</span>
+      </div>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2" id="airline-grid">
+        <button type="button" data-airline="tigerair" class="airline-btn py-2.5 px-2 rounded-xl text-xs font-bold border transition-all bg-amber-600 text-white border-amber-600 shadow-sm">
+          台灣虎航<span class="block text-[10px] font-normal opacity-90 mt-0.5">手提 10kg</span>
+        </button>
+        <button type="button" data-airline="peach" class="airline-btn py-2.5 px-2 rounded-xl text-xs font-bold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
+          樂桃航空<span class="block text-[10px] font-normal opacity-75 mt-0.5">手提 7kg</span>
+        </button>
+        <button type="button" data-airline="scoot" class="airline-btn py-2.5 px-2 rounded-xl text-xs font-bold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
+          酷航 Scoot<span class="block text-[10px] font-normal opacity-75 mt-0.5">手提 10kg</span>
+        </button>
+        <button type="button" data-airline="jetstar" class="airline-btn py-2.5 px-2 rounded-xl text-xs font-bold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
+          捷星航空<span class="block text-[10px] font-normal opacity-75 mt-0.5">手提 7kg</span>
+        </button>
+        <button type="button" data-airline="jeju" class="airline-btn py-2.5 px-2 rounded-xl text-xs font-bold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
+          濟州航空<span class="block text-[10px] font-normal opacity-75 mt-0.5">手提 10kg</span>
+        </button>
+        <button type="button" data-airline="tway" class="airline-btn py-2.5 px-2 rounded-xl text-xs font-bold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
+          德威／泰瑞<span class="block text-[10px] font-normal opacity-75 mt-0.5">手提 10kg</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Mode Tabs -->
+    <div class="bg-slate-200/70 p-1 rounded-xl grid grid-cols-2 gap-1" role="tablist" aria-label="檢測模式切換">
+      <button id="tab-btn-carryon" type="button" role="tab" aria-selected="true" aria-controls="panel-carryon"
+        class="py-2.5 px-3 rounded-lg text-sm font-semibold transition-all bg-white text-slate-900 shadow-sm">
+        手提登機箱尺寸＆重量檢測
+      </button>
+      <button id="tab-btn-checked" type="button" role="tab" aria-selected="false" aria-controls="panel-checked"
+        class="py-2.5 px-3 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900">
+        託運行李打包＆超重估算
+      </button>
+    </div>
+
+    <!-- PANEL 1: Carry-On Checker -->
+    <section id="panel-carryon" role="tabpanel" aria-labelledby="tab-btn-carryon" class="space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- Left Inputs -->
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-5">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">登機箱外徑尺寸（含輪子與手把）</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2">
+              <div>
+                <label for="co-h" class="block text-xs font-medium text-slate-600 mb-1">高 (cm)</label>
+                <input id="co-h" type="number" step="0.5" min="1" value="53"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-base font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              </div>
+              <div>
+                <label for="co-w" class="block text-xs font-medium text-slate-600 mb-1">寬 (cm)</label>
+                <input id="co-w" type="number" step="0.5" min="1" value="36"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-base font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              </div>
+              <div>
+                <label for="co-d" class="block text-xs font-medium text-slate-600 mb-1">厚 (cm)</label>
+                <input id="co-d" type="number" step="0.5" min="1" value="22"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-base font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-1.5 mt-2.5">
+              <button type="button" data-dims="53,36,22" class="dim-preset py-1.5 px-1 rounded-lg text-[11px] font-medium border border-slate-200 hover:bg-slate-100 text-slate-700">標準20吋</button>
+              <button type="button" data-dims="55,39,23" class="dim-preset py-1.5 px-1 rounded-lg text-[11px] font-medium border border-slate-200 hover:bg-slate-100 text-slate-700">偏大20吋</button>
+              <button type="button" data-dims="45,30,18" class="dim-preset py-1.5 px-1 rounded-lg text-[11px] font-medium border border-slate-200 hover:bg-slate-100 text-slate-700">旅行後背包</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 pt-2 border-t border-slate-100">
+            <div>
+              <label for="co-bag-kg" class="block text-xs font-medium text-slate-600 mb-1">主登機箱重 (kg)</label>
+              <input id="co-bag-kg" type="number" step="0.5" min="0" value="6.5"
+                class="w-full px-3 py-2 rounded-xl border border-slate-300 text-base font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+            </div>
+            <div>
+              <label for="co-personal-kg" class="block text-xs font-medium text-slate-600 mb-1">隨身包／免稅袋 (kg)</label>
+              <input id="co-personal-kg" type="number" step="0.5" min="0" value="2.0"
+                class="w-full px-3 py-2 rounded-xl border border-slate-300 text-base font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+            </div>
+          </div>
+          <p class="text-[11px] text-slate-400 -mt-3">這 6 家廉航的手提重量皆為「主件＋隨身包（含免稅品）合計計算」。</p>
+        </div>
+
+        <!-- Right Verdict -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="bg-slate-900 text-white rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p id="out-co-airline-label" class="text-xs font-medium text-slate-400">台灣虎航手提檢測結果</p>
+                <h2 id="out-co-verdict" class="text-2xl sm:text-3xl font-bold tracking-tight mt-1">--</h2>
+                <p id="out-co-sub" class="text-xs sm:text-sm text-slate-300 mt-1.5 tabular-nums">--</p>
+              </div>
+              <div class="bg-slate-800/90 rounded-xl px-4 py-3 text-right border border-slate-700/70">
+                <p class="text-[11px] text-slate-400">手提合計重量</p>
+                <p id="out-co-weight-ratio" class="text-xl font-bold tabular-nums text-amber-300 mt-0.5">-- / -- kg</p>
+              </div>
+            </div>
+
+            <!-- Two check pills -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800">
+              <div id="co-dim-card" class="rounded-xl p-3.5 border bg-slate-800/70 border-slate-700">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs text-slate-400">尺寸檢核（三邊合計 <span id="out-co-sum" class="tabular-nums">--</span> cm）</span>
+                  <span id="out-co-dim-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">--</span>
+                </div>
+                <p id="out-co-dim-detail" class="text-xs text-slate-200 mt-1.5 tabular-nums">--</p>
+              </div>
+              <div id="co-wt-card" class="rounded-xl p-3.5 border bg-slate-800/70 border-slate-700">
+                <div class="flex items-center justify-between gap-2">
+                  <span class="text-xs text-slate-400">重量檢核（2 件合併計重）</span>
+                  <span id="out-co-wt-badge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap">--</span>
+                </div>
+                <p id="out-co-wt-detail" class="text-xs text-slate-200 mt-1.5 tabular-nums">--</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Airline Specific Tip -->
+          <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs sm:text-sm text-amber-900 space-y-1">
+            <p class="font-bold"><span id="out-tip-airline">台灣虎航</span> 現場注意事項</p>
+            <p id="out-tip-body" class="text-amber-800 leading-relaxed">--</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 2: Checked Baggage Packing Estimator -->
+    <section id="panel-checked" role="tabpanel" aria-labelledby="tab-btn-checked" class="hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- Left Inputs -->
+        <div class="lg:col-span-5 bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-5">
+          <div>
+            <label for="ck-quota" class="block text-sm font-medium text-slate-700 mb-1.5">已購買託運行李額度 (kg)</label>
+            <div class="flex gap-2">
+              <input id="ck-quota" type="number" step="5" min="0" max="60" value="20"
+                class="w-20 px-3 py-2 rounded-xl border border-slate-300 text-sm font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              <div class="flex-1 grid grid-cols-4 gap-1">
+                <button type="button" data-quota="15" class="quota-preset py-2 rounded-lg text-xs font-medium border border-slate-200 hover:bg-slate-100 text-slate-700">15kg</button>
+                <button type="button" data-quota="20" class="quota-preset py-2 rounded-lg text-xs font-medium border border-slate-200 hover:bg-slate-100 text-slate-700">20kg</button>
+                <button type="button" data-quota="25" class="quota-preset py-2 rounded-lg text-xs font-medium border border-slate-200 hover:bg-slate-100 text-slate-700">25kg</button>
+                <button type="button" data-quota="30" class="quota-preset py-2 rounded-lg text-xs font-medium border border-slate-200 hover:bg-slate-100 text-slate-700">30kg</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <span class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-2">空行李箱尺寸與自重</span>
+            <div class="grid grid-cols-3 gap-1.5">
+              <button type="button" data-case-wt="3.8" data-case-cm="138" class="case-btn py-2 px-1.5 rounded-lg text-xs font-semibold border transition-all bg-amber-600 text-white border-amber-600">
+                24 吋<span class="block text-[10px] font-normal opacity-85">約 3.8kg</span>
+              </button>
+              <button type="button" data-case-wt="4.8" data-case-cm="155" class="case-btn py-2 px-1.5 rounded-lg text-xs font-semibold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
+                28 吋<span class="block text-[10px] font-normal opacity-75">約 4.8kg</span>
+              </button>
+              <button type="button" data-case-wt="5.2" data-case-cm="162" class="case-btn py-2 px-1.5 rounded-lg text-xs font-semibold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50">
+                29 吋胖胖箱<span class="block text-[10px] font-normal opacity-75">約 5.2kg</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="space-y-3 pt-2 border-t border-slate-100">
+            <span class="block text-xs font-semibold uppercase tracking-wider text-slate-500">日韓打包＆伴手禮重量估算</span>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label for="ck-days" class="block text-xs font-medium text-slate-600 mb-1">旅遊天數（衣物約 0.8kg/天）</label>
+                <input id="ck-days" type="number" min="1" max="30" value="5"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              </div>
+              <div>
+                <label for="ck-cosmetics" class="block text-xs font-medium text-slate-600 mb-1">藥妝／保養品 (kg)</label>
+                <input id="ck-cosmetics" type="number" step="0.5" min="0" value="3.5"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              </div>
+              <div>
+                <label for="ck-snacks" class="block text-xs font-medium text-slate-600 mb-1">零食／伴手禮 (kg)</label>
+                <input id="ck-snacks" type="number" step="0.5" min="0" value="4.0"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              </div>
+              <div>
+                <label for="ck-extra" class="block text-xs font-medium text-slate-600 mb-1">鞋子／電器／其他 (kg)</label>
+                <input id="ck-extra" type="number" step="0.5" min="0" value="2.5"
+                  class="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-semibold tabular-nums focus:outline-none focus:ring-2 focus:ring-amber-600" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Checked Results -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="bg-slate-900 text-white rounded-2xl p-5 sm:p-6 shadow-sm space-y-4">
+            <div class="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p class="text-xs font-medium text-slate-400">預估託運行李總重（含空箱）</p>
+                <div class="flex items-baseline gap-2 mt-1">
+                  <span id="out-ck-total" class="text-3xl sm:text-4xl font-bold tracking-tight tabular-nums">--</span>
+                  <span class="text-sm text-slate-300">kg</span>
+                </div>
+                <p id="out-ck-verdict" class="text-xs sm:text-sm mt-1.5 font-semibold tabular-nums">--</p>
+              </div>
+              <div class="bg-slate-800/90 rounded-xl px-4 py-3 text-right border border-slate-700/70">
+                <p class="text-[11px] text-slate-400">剩餘／超重空間</p>
+                <p id="out-ck-diff" class="text-xl font-bold tabular-nums mt-0.5">-- kg</p>
+              </div>
+            </div>
+
+            <!-- Weight Progress Bar -->
+            <div>
+              <div class="h-3 w-full rounded-full bg-slate-800 overflow-hidden">
+                <div id="out-ck-bar" class="h-full rounded-full transition-all duration-200 bg-emerald-400" style="width: 70%"></div>
+              </div>
+              <p id="out-ck-piece-note" class="text-xs text-slate-300 mt-2.5 tabular-nums">--</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="bg-white rounded-xl border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">航空公司單件託運上限</p>
+              <p id="out-ck-max-piece" class="text-base font-bold text-slate-900 tabular-nums mt-1">--</p>
+            </div>
+            <div class="bg-white rounded-xl border border-slate-200 p-4">
+              <p class="text-xs text-slate-500">託運箱尺寸上限（長＋寬＋高）</p>
+              <p id="out-ck-max-cm" class="text-base font-bold text-slate-900 tabular-nums mt-1">--</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6-Airline Comparison Table (High SEO value) -->
+    <section class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+      <div class="px-5 py-4 border-b border-slate-100">
+        <h2 class="text-sm sm:text-base font-bold text-slate-900">2026 日韓 6 大廉航手提與託運行李規定總整理</h2>
+        <p class="text-xs text-slate-500 mt-0.5">出發前快速核對尺寸與重量，避免機場臨櫃被收高額超重費</p>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs sm:text-sm text-left">
+          <thead class="bg-slate-50 text-slate-500 border-b border-slate-100">
+            <tr>
+              <th class="py-2.5 px-4 font-semibold">航空公司</th>
+              <th class="py-2.5 px-4 font-semibold">手提重量（2件合計）</th>
+              <th class="py-2.5 px-4 font-semibold">手提主件尺寸</th>
+              <th class="py-2.5 px-4 font-semibold">託運三邊上限</th>
+              <th class="py-2.5 px-4 font-semibold">單件託運上限</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700 tabular-nums">
+            <tr><td class="py-2.5 px-4 font-semibold text-slate-900">台灣虎航</td><td class="py-2.5 px-4">10 kg</td><td class="py-2.5 px-4">54 × 38 × 23 cm</td><td class="py-2.5 px-4">203 cm（單邊 ≤100）</td><td class="py-2.5 px-4">30 kg</td></tr>
+            <tr><td class="py-2.5 px-4 font-semibold text-slate-900">樂桃航空</td><td class="py-2.5 px-4 text-rose-600 font-semibold">7 kg</td><td class="py-2.5 px-4">三邊合計 ≤115 cm</td><td class="py-2.5 px-4">203 cm</td><td class="py-2.5 px-4">20 kg（計件）</td></tr>
+            <tr><td class="py-2.5 px-4 font-semibold text-slate-900">酷航 Scoot</td><td class="py-2.5 px-4">10 kg</td><td class="py-2.5 px-4">54 × 38 × 23 cm</td><td class="py-2.5 px-4">158 cm</td><td class="py-2.5 px-4">32 kg</td></tr>
+            <tr><td class="py-2.5 px-4 font-semibold text-slate-900">捷星航空</td><td class="py-2.5 px-4 text-rose-600 font-semibold">7 kg</td><td class="py-2.5 px-4">56 × 36 × 23 cm</td><td class="py-2.5 px-4">單邊 ≤100 cm</td><td class="py-2.5 px-4">32 kg</td></tr>
+            <tr><td class="py-2.5 px-4 font-semibold text-slate-900">濟州航空</td><td class="py-2.5 px-4">10 kg</td><td class="py-2.5 px-4">55 × 40 × 20 cm</td><td class="py-2.5 px-4">158 cm</td><td class="py-2.5 px-4">32 kg</td></tr>
+            <tr><td class="py-2.5 px-4 font-semibold text-slate-900">德威（泰瑞）航空</td><td class="py-2.5 px-4">10 kg</td><td class="py-2.5 px-4">55 × 40 × 20 cm</td><td class="py-2.5 px-4">203 cm</td><td class="py-2.5 px-4">32 kg</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Travel Partner Cards (4 Cards, clean without disclosure badge) -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm space-y-3.5">
+      <h2 class="text-sm sm:text-base font-bold text-slate-900">日韓行前必備工具與優惠整理</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <a href="https://adcenter.conn.tw/3aVfu" target="_blank" rel="noopener noreferrer sponsored"
+          class="block p-4 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/40 transition-all group">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-sm font-bold text-slate-900 group-hover:text-amber-700">Klook 客路｜日韓機場快線＆接送</span>
+            <span class="text-xs font-semibold text-amber-600 shrink-0">前往查看 →</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">行李太多不想扛著轉車？線上先訂成田／關西機場快線、仁川機場巴士與專車接送。</p>
+        </a>
+        <a href="https://shoppingfun.co/3aVfo" target="_blank" rel="noopener noreferrer sponsored"
+          class="block p-4 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/40 transition-all group">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-sm font-bold text-slate-900 group-hover:text-amber-700">eSIM4Travel｜日韓免換卡高速 eSIM</span>
+            <span class="text-xs font-semibold text-amber-600 shrink-0">前往查看 →</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">掃描 QR Code 立即開通日韓上網，免拔實體卡也不佔行李重量。</p>
+        </a>
+        <a href="https://afftkr.site/track/clicks/4145/c627c2bc9b0724ddfc8fec23d62e9e44256848c063b2a0f90361b60071401de3c021e7e5593c99616c" target="_blank" rel="noopener noreferrer sponsored"
+          class="block p-4 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/40 transition-all group">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-sm font-bold text-slate-900 group-hover:text-amber-700">翔翼通訊｜日韓實體 SIM 卡＆Wi-Fi 機</span>
+            <span class="text-xs font-semibold text-amber-600 shrink-0">前往查看 →</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">台灣老牌出國上網方案，提供實體上網卡、eSIM 與多人共用 Wi-Fi 機。</p>
+        </a>
+        <a href="https://twshop4coupon.com/track/clicks/8682/c627c2bc9b0724ddfc8cec23d62e9e44256848c063b2a0f90f66ba0771401de3c021e7e5593c99616c" target="_blank" rel="noopener noreferrer sponsored"
+          class="block p-4 rounded-xl border border-slate-200 hover:border-amber-400 hover:bg-amber-50/40 transition-all group">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-sm font-bold text-slate-900 group-hover:text-amber-700">Agoda｜日本、韓國飯店限時優惠</span>
+            <span class="text-xs font-semibold text-amber-600 shrink-0">前往查看 →</span>
+          </div>
+          <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">東京、大阪、首爾、釜山住宿比價，挑選車站旁飯店拖大行李更輕鬆。</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 shadow-sm space-y-4">
+      <h2 class="text-base font-bold text-slate-900">廉航行李常見問題</h2>
+      <div class="divide-y divide-slate-100 text-sm">
+        <details class="py-3 group" open>
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none flex items-center justify-between">
+            <span>20 吋登機箱都能帶上台灣虎航、濟州航空或德威航空嗎？</span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <p class="text-slate-600 mt-2 leading-relaxed">
+            不一定！市售 20 吋登機箱加上輪子與手把後，高度常落在 54～56 公分、厚度常超過 22 公分。台灣虎航限 <strong>54 × 38 × 23 cm</strong>，韓國的濟州航空與德威（現更名為泰瑞航空）厚度則限 <strong>20 cm</strong>（55 × 40 × 20 cm），出發前務必實量含輪外徑。
+          </p>
+        </details>
+        <details class="py-3 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none flex items-center justify-between">
+            <span>為什麼大家常說千萬不要到機場櫃檯才加購託運行李？</span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <p class="text-slate-600 mt-2 leading-relaxed">
+            廉航線上預購託運行李通常比機場臨櫃便宜許多，而且現場超重是「逐公斤計費」（例如台灣虎航機場超重每公斤 NT$ 500，若登機門才被攔下超規手提行李強制託運更可能高達 NT$ 2,000）。建議在起飛前至少 4～24 小時先於官網加購。
+          </p>
+        </details>
+        <details class="py-3 group">
+          <summary class="font-semibold text-slate-800 cursor-pointer list-none flex items-center justify-between">
+            <span>買 20 公斤託運可以裝成兩件行李嗎？</span>
+            <span class="text-slate-400 group-open:rotate-180 transition-transform">▾</span>
+          </summary>
+          <p class="text-slate-600 mt-2 leading-relaxed">
+            要看航空公司是「計重制」還是「計件制」：<strong>台灣虎航、酷航、捷星</strong>屬於計重制（總重不超過購買額度即可分裝）；但<strong>樂桃航空</strong>採計件制，買 1 件就是上限 20 kg、只能託運 1 件，第二件必須另外加購。
+          </p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white mt-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-5 text-center text-xs text-slate-400 space-y-2">
+      <p class="text-slate-500 flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1">
+        <a href="https://tool-lab-tw.github.io/" class="text-slate-700 font-semibold underline underline-offset-2 hover:text-slate-900">實用工具實驗室首頁</a>
+        <span aria-hidden="true">｜</span>
+        <a href="https://tool-lab-tw.github.io/jp-calc/" class="text-slate-600 hover:text-slate-900 underline underline-offset-2">日韓刷卡＆退稅計算機</a>
+        <span aria-hidden="true">｜</span>
+        <a href="https://tool-lab-tw.github.io/fx-avg/" class="text-slate-600 hover:text-slate-900 underline underline-offset-2">外幣分批換匯計算機</a>
+        <span aria-hidden="true">｜</span>
+        <a href="https://stock-lab-tw.github.io/tw-stock-calc/" class="text-slate-600 hover:text-slate-900 underline underline-offset-2">台股損益＆融資斷頭試算器</a>
+      </p>
+      <p>免責聲明：各航空公司行李尺寸、重量與現場超重費率可能隨航線與季節調整，出發前請務必以各航空公司官網最新公告為準。</p>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div id="toast" role="status" aria-live="polite"
+    class="fixed bottom-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2.5 rounded-xl bg-slate-900 text-white text-xs sm:text-sm font-medium shadow-lg opacity-0 pointer-events-none transition-opacity duration-200 max-w-[90vw] text-center">
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const AIRLINES = {
+        tigerair: {
+          name: '台灣虎航',
+          coKg: 10,
+          coDims: [54, 38, 23],
+          coLinear: 115,
+          checkPerSide: true,
+          ckMaxPiece: 30,
+          ckMaxCm: 203,
+          ckModeNote: '計重制（不限件數，但單件不得超過 30 kg、單邊 ≤ 100 cm）。',
+          tip: '虎航現場對登機箱測量相當嚴格（含輪子與手把須小於 54 × 38 × 23 cm）。機場超重費約 NT$ 500/kg，若在登機門被攔下超規手提託運則可能高達 NT$ 2,000，建議行前先於官網加購。',
+        },
+        peach: {
+          name: '樂桃航空',
+          coKg: 7,
+          coDims: [50, 40, 25],
+          coLinear: 115,
+          checkPerSide: false,
+          ckMaxPiece: 20,
+          ckMaxCm: 203,
+          ckModeNote: '計件制（每買 1 件上限 20 kg、三邊 ≤ 203 cm，不可分裝成兩件）。',
+          tip: '樂桃手提限重僅 7 公斤（含登機箱自重約 2.5～3 kg，實際能裝不到 4.5 kg），且常在登機前秤重；託運則以件計費，每件 20 kg。',
+        },
+        scoot: {
+          name: '酷航 Scoot',
+          coKg: 10,
+          coDims: [54, 38, 23],
+          coLinear: 115,
+          checkPerSide: true,
+          ckMaxPiece: 32,
+          ckMaxCm: 158,
+          ckModeNote: '計重制（單件不得超過 32 kg，託運箱三邊合計上限 158 cm）。',
+          tip: '酷航經濟艙手提 2 件合計 10 kg（主件 54 × 38 × 23 cm、隨身包 40 × 30 × 10 cm）。留意 29 吋胖胖箱三邊常超過 158 cm，託運前請先量過。',
+        },
+        jetstar: {
+          name: '捷星航空',
+          coKg: 7,
+          coDims: [56, 36, 23],
+          coLinear: 115,
+          checkPerSide: true,
+          ckMaxPiece: 32,
+          ckMaxCm: 203,
+          ckModeNote: '計重制（單件上限 32 kg，單邊長度不可超過 100 cm，最高可買 40 kg）。',
+          tip: '捷星目前標準手提為 2 件合計 7 kg（主件 56 × 36 × 23 cm），現場抽查頻率高；若回程預計採買伴手禮，建議提早加購託運。',
+        },
+        jeju: {
+          name: '濟州航空',
+          coKg: 10,
+          coDims: [55, 40, 20],
+          coLinear: 115,
+          checkPerSide: true,
+          ckMaxPiece: 32,
+          ckMaxCm: 158,
+          ckModeNote: '單件上限 32 kg（超過 23 kg 損壞不理賠），託運箱三邊上限 158 cm。',
+          tip: '濟州航空手提厚度限制較窄（55 × 40 × 20 cm，隨身包 40 × 30 × 15 cm），2 件合計 10 kg；同筆訂單同行者託運額度通常可合併計算。',
+        },
+        tway: {
+          name: '德威（泰瑞）航空',
+          coKg: 10,
+          coDims: [55, 40, 20],
+          coLinear: 115,
+          checkPerSide: true,
+          ckMaxPiece: 32,
+          ckMaxCm: 203,
+          ckModeNote: '單件上限 32 kg，三邊合計上限 203 cm（活動票無免費託運，智慧票多含 15 kg）。',
+          tip: '德威航空（2026 年 9 月起更名為泰瑞航空 Trinity Airways）手提 2 件合計 10 kg，主件限 55 × 40 × 20 cm（含輪子手把）、隨身包 40 × 30 × 15 cm。',
+        },
+      };
+
+      const state = {
+        airline: 'tigerair',
+        activeTab: 'carryon',
+        caseWt: 3.8,
+        caseCm: 138,
+      };
+
+      const $ = (id) => document.getElementById(id);
+
+      let toastTimer = null;
+      function showToast(msg) {
+        const el = $('toast');
+        el.textContent = msg;
+        el.classList.remove('opacity-0');
+        el.classList.add('opacity-100');
+        if (toastTimer) clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          el.classList.remove('opacity-100');
+          el.classList.add('opacity-0');
+        }, 2400);
+      }
+
+      function renderCarryOn() {
+        const a = AIRLINES[state.airline];
+        const h = parseFloat($('co-h').value) || 0;
+        const w = parseFloat($('co-w').value) || 0;
+        const d = parseFloat($('co-d').value) || 0;
+        const bagKg = parseFloat($('co-bag-kg').value) || 0;
+        const persKg = parseFloat($('co-personal-kg').value) || 0;
+
+        const userSorted = [h, w, d].sort((x, y) => y - x);
+        const limSorted = [...a.coDims].sort((x, y) => y - x);
+        const sumCm = h + w + d;
+        const totalKg = bagKg + persKg;
+
+        let dimPass = sumCm <= a.coLinear;
+        if (a.checkPerSide) {
+          dimPass = dimPass && userSorted[0] <= limSorted[0] && userSorted[1] <= limSorted[1] && userSorted[2] <= limSorted[2];
+        }
+        const wtPass = totalKg <= a.coKg;
+
+        $('airline-rule-pill').textContent = `手提 2 件合計 ${a.coKg} kg`;
+        $('out-co-airline-label').textContent = `${a.name}手提檢測結果`;
+        $('out-co-weight-ratio').textContent = `${totalKg.toFixed(1)} / ${a.coKg} kg`;
+        $('out-co-sum').textContent = sumCm.toFixed(0);
+
+        // Dim card
+        const dimBadge = $('out-co-dim-badge');
+        if (dimPass) {
+          dimBadge.textContent = '符合規定';
+          dimBadge.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap bg-emerald-500/20 text-emerald-300';
+          $('out-co-dim-detail').textContent = a.checkPerSide
+            ? `上限 ${a.coDims.join(' × ')} cm（你的箱子皆在範圍內）`
+            : `上限三邊總和 ${a.coLinear} cm（你的總和 ${sumCm.toFixed(0)} cm）`;
+        } else {
+          dimBadge.textContent = '超過尺寸';
+          dimBadge.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap bg-rose-500/25 text-rose-300';
+          $('out-co-dim-detail').textContent = a.checkPerSide
+            ? `超出 ${a.name} 上限 ${a.coDims.join(' × ')} cm，登機門可能被要求付費託運`
+            : `三邊合計 ${sumCm.toFixed(0)} cm 超出 ${a.coLinear} cm 上限`;
+        }
+
+        // Weight card
+        const wtBadge = $('out-co-wt-badge');
+        if (wtPass) {
+          wtBadge.textContent = '符合規定';
+          wtBadge.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap bg-emerald-500/20 text-emerald-300';
+          $('out-co-wt-detail').textContent = `還有 ${(a.coKg - totalKg).toFixed(1)} kg 餘裕（記得預留機場免稅伴手禮重量）`;
+        } else {
+          wtBadge.textContent = `超重 ${(totalKg - a.coKg).toFixed(1)} kg`;
+          wtBadge.className = 'text-[11px] font-bold px-2.5 py-0.5 rounded-full shrink-0 whitespace-nowrap bg-rose-500/25 text-rose-300';
+          $('out-co-wt-detail').textContent = `超過 ${a.coKg} kg 限重，建議提前改買託運行李或減重`;
+        }
+
+        // Overall verdict
+        if (dimPass && wtPass) {
+          $('out-co-verdict').textContent = '順利過關！可以直接登機';
+          $('out-co-verdict').className = 'text-2xl sm:text-3xl font-bold tracking-tight mt-1 text-emerald-300';
+          $('out-co-sub').textContent = `尺寸與重量均符合 ${a.name} 手提規定，尚有 ${(a.coKg - totalKg).toFixed(1)} kg 空間。`;
+        } else if (!dimPass && !wtPass) {
+          $('out-co-verdict').textContent = '尺寸與重量雙雙超標！';
+          $('out-co-verdict').className = 'text-2xl sm:text-3xl font-bold tracking-tight mt-1 text-rose-400';
+          $('out-co-sub').textContent = `高度建議出發前先上 ${a.name} 官網加購託運行李，避免現場高額罰款。`;
+        } else if (!dimPass) {
+          $('out-co-verdict').textContent = '注意：登機箱尺寸超標！';
+          $('out-co-verdict').className = 'text-2xl sm:text-3xl font-bold tracking-tight mt-1 text-amber-300';
+          $('out-co-sub').textContent = `重量雖合格，但箱體可能塞不進 ${a.name} 測量框，建議改帶軟包或加購託運。`;
+        } else {
+          $('out-co-verdict').textContent = `注意：手提超重 ${(totalKg - a.coKg).toFixed(1)} kg！`;
+          $('out-co-verdict').className = 'text-2xl sm:text-3xl font-bold tracking-tight mt-1 text-rose-400';
+          $('out-co-sub').textContent = `${a.name} 手提限重 ${a.coKg} kg（2 件合計），建議減重或提前線上買託運。`;
+        }
+
+        $('out-tip-airline').textContent = a.name;
+        $('out-tip-body').textContent = a.tip;
+      }
+
+      function renderChecked() {
+        const a = AIRLINES[state.airline];
+        const quota = parseFloat($('ck-quota').value) || 0;
+        const days = parseFloat($('ck-days').value) || 0;
+        const cosmetics = parseFloat($('ck-cosmetics').value) || 0;
+        const snacks = parseFloat($('ck-snacks').value) || 0;
+        const extra = parseFloat($('ck-extra').value) || 0;
+
+        const clothesKg = days * 0.8;
+        const totalKg = state.caseWt + clothesKg + cosmetics + snacks + extra;
+        const diff = quota - totalKg;
+
+        $('out-ck-total').textContent = totalKg.toFixed(1);
+        $('out-ck-max-piece').textContent = `單件最高 ${a.ckMaxPiece} kg`;
+        $('out-ck-max-cm').textContent = `三邊合計 ≤ ${a.ckMaxCm} cm`;
+
+        const bar = $('out-ck-bar');
+        const pct = quota > 0 ? Math.min(100, (totalKg / quota) * 100) : 100;
+        bar.style.width = `${pct}%`;
+
+        if (quota <= 0) {
+          $('out-ck-verdict').textContent = '你尚未購買託運額度，建議至少加購 20 kg 託運！';
+          $('out-ck-verdict').className = 'text-xs sm:text-sm mt-1.5 font-semibold text-rose-300 tabular-nums';
+          $('out-ck-diff').textContent = `-${totalKg.toFixed(1)} kg`;
+          $('out-ck-diff').className = 'text-xl font-bold tabular-nums text-rose-400 mt-0.5';
+          bar.className = 'h-full rounded-full transition-all duration-200 bg-rose-500';
+        } else if (diff >= 2) {
+          $('out-ck-verdict').textContent = `額度充裕！還有 ${diff.toFixed(1)} kg 可以買伴手禮。`;
+          $('out-ck-verdict').className = 'text-xs sm:text-sm mt-1.5 font-semibold text-emerald-300 tabular-nums';
+          $('out-ck-diff').textContent = `+${diff.toFixed(1)} kg`;
+          $('out-ck-diff').className = 'text-xl font-bold tabular-nums text-emerald-300 mt-0.5';
+          bar.className = 'h-full rounded-full transition-all duration-200 bg-emerald-400';
+        } else if (diff >= 0) {
+          $('out-ck-verdict').textContent = `非常接近上限！僅剩 ${diff.toFixed(1)} kg，建議攜帶手提行李秤。`;
+          $('out-ck-verdict').className = 'text-xs sm:text-sm mt-1.5 font-semibold text-amber-300 tabular-nums';
+          $('out-ck-diff').textContent = `+${diff.toFixed(1)} kg`;
+          $('out-ck-diff').className = 'text-xl font-bold tabular-nums text-amber-300 mt-0.5';
+          bar.className = 'h-full rounded-full transition-all duration-200 bg-amber-400';
+        } else {
+          $('out-ck-verdict').textContent = `預估超重 ${Math.abs(diff).toFixed(1)} kg！強烈建議出發前線上加購額度。`;
+          $('out-ck-verdict').className = 'text-xs sm:text-sm mt-1.5 font-semibold text-rose-300 tabular-nums';
+          $('out-ck-diff').textContent = `${diff.toFixed(1)} kg`;
+          $('out-ck-diff').className = 'text-xl font-bold tabular-nums text-rose-400 mt-0.5';
+          bar.className = 'h-full rounded-full transition-all duration-200 bg-rose-500';
+        }
+
+        const warnings = [];
+        if (totalKg > a.ckMaxPiece) {
+          warnings.push(`注意：總重已超過 ${a.name} 單件上限 ${a.ckMaxPiece} kg，必須分裝兩箱。`);
+        }
+        if (state.caseCm > a.ckMaxCm) {
+          warnings.push(`注意：29 吋胖胖箱三邊（約 ${state.caseCm} cm）可能超過 ${a.name} 的 ${a.ckMaxCm} cm 上限。`);
+        }
+        $('out-ck-piece-note').textContent = warnings.length > 0 ? warnings.join(' ') : `${a.name}規定：${a.ckModeNote}`;
+      }
+
+      // Airline Switch
+      document.querySelectorAll('.airline-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.airline = btn.dataset.airline;
+          document.querySelectorAll('.airline-btn').forEach((b) => {
+            const active = b.dataset.airline === state.airline;
+            b.className = active
+              ? 'airline-btn py-2.5 px-2 rounded-xl text-xs font-bold border transition-all bg-amber-600 text-white border-amber-600 shadow-sm'
+              : 'airline-btn py-2.5 px-2 rounded-xl text-xs font-bold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
+          });
+          renderCarryOn();
+          renderChecked();
+        });
+      });
+
+      // Tabs
+      function setTab(tab) {
+        state.activeTab = tab;
+        const isCO = tab === 'carryon';
+        $('panel-carryon').classList.toggle('hidden', !isCO);
+        $('panel-checked').classList.toggle('hidden', isCO);
+        $('tab-btn-carryon').setAttribute('aria-selected', String(isCO));
+        $('tab-btn-checked').setAttribute('aria-selected', String(!isCO));
+        $('tab-btn-carryon').className = isCO
+          ? 'py-2.5 px-3 rounded-lg text-sm font-semibold transition-all bg-white text-slate-900 shadow-sm'
+          : 'py-2.5 px-3 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900';
+        $('tab-btn-checked').className = !isCO
+          ? 'py-2.5 px-3 rounded-lg text-sm font-semibold transition-all bg-white text-slate-900 shadow-sm'
+          : 'py-2.5 px-3 rounded-lg text-sm font-semibold transition-all text-slate-600 hover:text-slate-900';
+      }
+      $('tab-btn-carryon').addEventListener('click', () => setTab('carryon'));
+      $('tab-btn-checked').addEventListener('click', () => setTab('checked'));
+
+      // Presets
+      document.querySelectorAll('.dim-preset').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const [h, w, d] = btn.dataset.dims.split(',');
+          $('co-h').value = h;
+          $('co-w').value = w;
+          $('co-d').value = d;
+          renderCarryOn();
+        });
+      });
+
+      document.querySelectorAll('.quota-preset').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          $('ck-quota').value = btn.dataset.quota;
+          renderChecked();
+        });
+      });
+
+      document.querySelectorAll('.case-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          state.caseWt = parseFloat(btn.dataset.caseWt);
+          state.caseCm = parseFloat(btn.dataset.caseCm);
+          document.querySelectorAll('.case-btn').forEach((b) => {
+            const active = b === btn;
+            b.className = active
+              ? 'case-btn py-2 px-1.5 rounded-lg text-xs font-semibold border transition-all bg-amber-600 text-white border-amber-600'
+              : 'case-btn py-2 px-1.5 rounded-lg text-xs font-semibold border transition-all bg-white text-slate-700 border-slate-200 hover:bg-slate-50';
+          });
+          renderChecked();
+        });
+      });
+
+      ['co-h', 'co-w', 'co-d', 'co-bag-kg', 'co-personal-kg'].forEach((id) => {
+        $(id).addEventListener('input', renderCarryOn);
+      });
+      ['ck-quota', 'ck-days', 'ck-cosmetics', 'ck-snacks', 'ck-extra'].forEach((id) => {
+        $(id).addEventListener('input', renderChecked);
+      });
+
+      // Copy Summary
+      $('btn-copy-summary').addEventListener('click', () => {
+        const a = AIRLINES[state.airline];
+        let text = '';
+        if (state.activeTab === 'carryon') {
+          const verdict = $('out-co-verdict').textContent;
+          const wt = $('out-co-weight-ratio').textContent;
+          text = `【${a.name} 手提行李檢測】${verdict}（重量 ${wt}）`;
+        } else {
+          const tot = $('out-ck-total').textContent;
+          const verdict = $('out-ck-verdict').textContent;
+          text = `【${a.name} 託運行李估算】預估總重 ${tot} kg｜${verdict}`;
+        }
+
+        const fallbackCopy = (str) => {
+          const ta = document.createElement('textarea');
+          ta.value = str;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try {
+            document.execCommand('copy');
+            showToast('已複製檢測結果！');
+          } catch (e) {
+            showToast('複製失敗，請手動選取複製。');
+          }
+          document.body.removeChild(ta);
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text)
+            .then(() => showToast('已複製檢測結果！'))
+            .catch(() => fallbackCopy(text));
+        } else {
+          fallbackCopy(text);
+        }
+      });
+
+      // Init
+      renderCarryOn();
+      renderChecked();
+    })();
+  </script>
+  <script>var ConverlyCustomData = {channelId: null};</script>
+  <script async defer src="https://cdn.adotone.com/production/adlinks/23c1396816138b5012317378ade8e49903ca174367b084371855b4712cd32d3b.js"></script>
+</body>
+</html>
