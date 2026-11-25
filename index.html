@@ -50,6 +50,7 @@
     .tabular-nums {
       font-variant-numeric: tabular-nums;
     }
+    body { padding-bottom: 64px; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
@@ -209,6 +210,15 @@
             </div>
           </div>
 
+          <!-- Contextual Action Strip -->
+          <div class="rounded-xl border border-amber-200 bg-gradient-to-r from-amber-50 to-yellow-50 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+            <div class="text-xs sm:text-sm font-semibold text-slate-800">🧳 省下廉航超重費，出發前把網卡跟機場交通先訂好：</div>
+            <div class="flex flex-wrap gap-2 shrink-0">
+              <a href="https://adcenter.conn.tw/3aVfu" target="_blank" rel="noopener noreferrer sponsored" class="px-3 py-1.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-xs font-bold transition">Klook 機場快線 →</a>
+              <a href="https://shoppingfun.co/3aVfo" target="_blank" rel="noopener noreferrer sponsored" class="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-700 text-white text-xs font-bold transition">eSIM 免換卡 →</a>
+              <a href="https://twshop4coupon.com/track/clicks/8682/c627c2bc9b0724ddfc8cec23d62e9e44256848c063b2a0f90f66ba0771401de3c021e7e5593c99616c" target="_blank" rel="noopener noreferrer sponsored" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition">Agoda 住宿 →</a>
+            </div>
+          </div>
           <!-- Airline Specific Tip -->
           <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 text-xs sm:text-sm text-amber-900 space-y-1">
             <p class="font-bold"><span id="out-tip-airline">台灣虎航</span> 現場注意事項</p>
@@ -786,6 +796,22 @@
       renderChecked();
     })();
   </script>
+
+  <!-- Dismissible Sticky Bottom Bar -->
+  <div id="sticky-promo-bar" class="fixed bottom-0 inset-x-0 z-50 bg-slate-900/95 backdrop-blur border-t border-slate-700/80 text-white px-3 py-2.5 shadow-lg">
+    <div class="max-w-5xl mx-auto flex items-center justify-between gap-2.5">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="shrink-0 text-[11px] font-bold px-2 py-0.5 rounded-full bg-white/15 text-amber-300">搭廉航省預算</span>
+        <p class="text-xs sm:text-sm font-medium truncate text-slate-100">機場快線、行李寄放與日韓高速 eSIM 提前線上訂更划算</p>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <a href="https://adcenter.conn.tw/3aVfu" target="_blank" rel="noopener noreferrer sponsored" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-amber-400 hover:bg-amber-300 text-slate-950 whitespace-nowrap">逛 Klook 優惠 →</a>
+        <button type="button" aria-label="關閉提示條" onclick="(function(){var el=document.getElementById('sticky-promo-bar');if(el)el.style.display='none';try{sessionStorage.setItem('hide_bar_baggage','1');}catch(e){}})();" class="p-1 rounded-md text-slate-400 hover:text-white hover:bg-white/10 text-sm leading-none">✕</button>
+      </div>
+    </div>
+  </div>
+  <script>(function(){try{if(sessionStorage.getItem('hide_bar_baggage')==='1'){var el=document.getElementById('sticky-promo-bar');if(el)el.style.display='none';}}catch(e){}})();</script>
+
   <script>var ConverlyCustomData = {channelId: null};</script>
   <script async defer src="https://cdn.adotone.com/production/adlinks/23c1396816138b5012317378ade8e49903ca174367b084371855b4712cd32d3b.js"></script>
 </body>
